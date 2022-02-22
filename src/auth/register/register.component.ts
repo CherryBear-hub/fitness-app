@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'fit-register',
@@ -12,4 +13,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  registerUser(event: FormGroup) {
+    console.log(event.value);
+  }
 }

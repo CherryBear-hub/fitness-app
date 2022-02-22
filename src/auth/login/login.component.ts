@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'fit-login',
@@ -12,4 +13,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  loginUser(event: FormGroup) {
+    console.log(event.value);
+  }
 }
