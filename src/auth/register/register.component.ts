@@ -1,19 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import {FormGroup} from "@angular/forms";
+import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { AuthService } from '../shared/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fit-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
+  error = '';
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-  }
-
-  registerUser(event: FormGroup) {
-    console.log(event.value);
+  async registerUser(event: FormGroup) {
+    const { email, password } = event.value;
+    try {
+      await this.authService.createUser(email, password);
+      this.router.navigate(['/']);
+    } catch (err: any) {
+      this.error = err.message;
+    }
   }
 }

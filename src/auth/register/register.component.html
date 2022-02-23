@@ -1,7 +1,6 @@
 <fit-auth-form (submitted)="registerUser($event)">
   <h1 title>Register</h1>
   <a routerLink="/auth/login" toggle>Already have an account?</a>
-  <button type="submit" action>
-    Register
-  </button>
+  <button type="submit" action>Register</button>
+  <div class="error" *ngIf="error">{{ error }}</div>
 </fit-auth-form>
