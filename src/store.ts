@@ -1,10 +1,14 @@
 import {BehaviorSubject, distinctUntilKeyChanged, Observable, pluck, scan, Subject} from "rxjs";
+import {User} from "./utils/types";
 
 export interface State {
+  user?: User
   [key: string]: any
 }
 
-const state: State = {};
+const state: State = {
+  user: undefined
+};
 
 export class Store{
   private readonly store: BehaviorSubject<State>;
