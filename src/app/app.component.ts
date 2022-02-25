@@ -3,6 +3,7 @@ import { AuthService } from '../auth/shared/services/auth/auth.service';
 import { Store } from 'store';
 import { Observable, Subscription } from 'rxjs';
 import { User } from '../utils/types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,11 @@ export class AppComponent implements OnInit, OnDestroy {
   user$?: Observable<User>;
   subscription = new Subscription();
 
-  constructor(private store: Store, private authService: AuthService) {}
+  constructor(
+    private store: Store,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -26,7 +31,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.user$ = this.store.selectedState('user');
   }
 
-  onLogout() {
-    console.log('Logout...')
+  async onLogout() {
+    await this.authService.logoutUser();
+    this.router.navigate(['auth', 'login'])
   }
 }
