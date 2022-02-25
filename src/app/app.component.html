@@ -1,5 +1,10 @@
-<div>Hello {{ user$ | async | json }}</div>
+<fit-app-header [user]="user$ | async" (logout)="onLogout()"></fit-app-header>
+<fit-app-nav *ngIf="(user$ | async)?.authenticated"></fit-app-nav>
+<div>
 <div class="wrapper">
   <a routerLink="auth/login">Login</a>
 </div>
+  <div class="wrapper">
 <router-outlet></router-outlet>
+  </div>
+</div>

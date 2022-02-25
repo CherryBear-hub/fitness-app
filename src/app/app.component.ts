@@ -25,4 +25,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription = this.authService.auth$.subscribe();
     this.user$ = this.store.selectedState('user');
   }
+
+  onLogout() {
+    console.log('Logout...')
+  }
 }
