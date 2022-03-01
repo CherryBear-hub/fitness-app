@@ -13,9 +13,7 @@ export class AuthGuard implements CanLoad {
     private router: Router,
     private authService: AuthService,
     private store: Store
-  ) {
-
-  }
+  ) {}
 
   canLoad(
     route: Route,
