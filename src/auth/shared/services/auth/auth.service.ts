@@ -7,8 +7,8 @@ import {User} from '../../../../utils/types';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private angularFireAuth: AngularFireAuth, private store: Store) {
-    this.angularFireAuth.authState.subscribe(value => {
+  constructor(private auth: AngularFireAuth, private store: Store) {
+    this.auth.authState.subscribe(value => {
       if (!value) {
         this.store.updateState({user: undefined});
         return;
@@ -23,14 +23,14 @@ export class AuthService {
   }
 
   createUser(email: string, password: string) {
-    return this.angularFireAuth.createUserWithEmailAndPassword(email, password);
+    return this.auth.createUserWithEmailAndPassword(email, password);
   }
 
   loginUser(email: string, password: string) {
-    return this.angularFireAuth.signInWithEmailAndPassword(email, password);
+    return this.auth.signInWithEmailAndPassword(email, password);
   }
 
   logoutUser() {
-    return this.angularFireAuth.signOut();
+    return this.auth.signOut();
   }
 }

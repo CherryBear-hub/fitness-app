@@ -1,25 +1,30 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../auth/shared/guards/auth.guard';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AngularFireAuthGuard, redirectUnauthorizedTo,} from '@angular/fire/compat/auth-guard';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['auth/login']);
 
 export const ROUTES: Routes = [
   {
     path: 'schedule',
     loadChildren: () =>
       import('./schedule/schedule.module').then((m) => m.ScheduleModule),
-    canLoad: [AuthGuard],
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'meals',
     loadChildren: () =>
       import('./meals/meals.module').then((m) => m.MealsModule),
-    canLoad: [AuthGuard],
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'workouts',
     loadChildren: () =>
       import('./workouts/workouts.module').then((m) => m.WorkoutsModule),
-    canLoad: [AuthGuard],
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
 ];
 
