@@ -6,10 +6,11 @@ import {
   scan,
   Subject,
 } from 'rxjs';
-import {User} from './utils/types';
+import {Meal, User} from './utils/types';
 
 export interface State {
   user?: User;
+  meals?: Meal[];
 
   [key: string]: any;
 }

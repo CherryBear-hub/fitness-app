@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AngularFireAuthGuard, redirectUnauthorizedTo,} from '@angular/fire/compat/auth-guard';
+import {SharedModule} from "./shared/shared.module";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['auth/login']);
 
@@ -30,6 +31,6 @@ export const ROUTES: Routes = [
 
 @NgModule({
   declarations: [],
-  imports: [RouterModule.forChild(ROUTES)],
+  imports: [RouterModule.forChild(ROUTES), SharedModule],
 })
 export class HealthModule {}
