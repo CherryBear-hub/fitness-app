@@ -1,16 +1,16 @@
-import {Component} from '@angular/core';
-import {Meal} from "../../../../utils/types";
+import { Component } from '@angular/core';
+import { Meal } from '../../../../utils/types';
+import { MealsService } from '../../../shared/services/meals.service';
 
 @Component({
   selector: 'fit-meal',
   templateUrl: './meal.component.html',
-  styleUrls: ['./meal.component.scss']
+  styleUrls: ['./meal.component.scss'],
 })
-export class MealComponent{
-
-  constructor() { }
+export class MealComponent {
+  constructor(private mealsService: MealsService) {}
 
   addMeal(event: Meal) {
-    console.log(event);
+    this.mealsService.addMeal(event);
   }
 }

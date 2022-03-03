@@ -5,8 +5,9 @@ import {
   pluck,
   scan,
   Subject,
+  tap,
 } from 'rxjs';
-import {Meal, User} from './utils/types';
+import { Meal, User } from './utils/types';
 
 export interface State {
   user?: User;
