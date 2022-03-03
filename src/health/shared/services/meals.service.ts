@@ -39,4 +39,10 @@ export class MealsService {
   backToMeals() {
     this.router.navigate(['meals']);
   }
+
+  removeMeal(id: string) {
+    this.uid
+      .pipe(switchMap((uid) => this.firebase.deleteUserMeal(uid, id)))
+      .subscribe();
+  }
 }
