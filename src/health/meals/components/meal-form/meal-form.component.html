@@ -1,0 +1,39 @@
+<div class="meal-form">
+  <form [formGroup]="form">
+    <div class="meal-form__name">
+      <label>
+        <h3>Meal name</h3>
+        <input
+          formControlName="name"
+          placeholder="e.g. English Breakfast"
+          type="text"
+        />
+        <div *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched" class="error">
+          Workout name is required
+        </div>
+      </label>
+    </div>
+    <div class="meal-form__food">
+      <div class="meal-form__subtitle">
+        <h3>Food</h3>
+        <button (click)="addIngredient()" class="meal-form__add" type="button">
+          <img src="assets/img/add-white.svg">
+          Add food
+        </button>
+      </div>
+      <div formArrayName="ingredients">
+        <label *ngFor="let c of ingredients.controls; index as i">
+          <input [formControlName]="i" placeholder="e.g. Eggs">
+          <span (click)="removeIngredient(i)" class="meal-form__remove"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="meal-form__submit">
+      <div>
+        <button (click)="createMeal()" class="button" type="button">Create Meal</button>
+        <a [routerLink]="['../']" class="button button--cancel">Cancel</a>
+      </div>
+    </div>
+  </form>
+</div>
