@@ -12,21 +12,21 @@ import {Meal} from "../../../../utils/types";
 export class MealsComponent implements OnInit, OnDestroy {
   meals$?: Observable<Meal[]>;
 
-  private subscribe$ = new Subject<void>();
+  private unsubscribe$ = new Subject<void>();
 
   constructor(private mealsService: MealsService, private store: Store) { }
 
   ngOnInit(): void {
-    this.mealsService.userMeals$.pipe(takeUntil(this.subscribe$)).subscribe();
+    this.mealsService.userMeals$.pipe(takeUntil(this.unsubscribe$)).subscribe();
     this.meals$ = this.store.selectedState<Meal[]>('meals');
   }
 
   ngOnDestroy(): void {
-    this.subscribe$.next();
-    this.subscribe$.complete();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   removeMeal(event: Meal) {
-    this.mealsService.removeMeal(event.id);
+    this.mealsService.removeMeal(event.id).pipe(takeUntil(this.unsubscribe$)).subscribe();
   }
 }

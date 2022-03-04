@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Store } from 'store';
 import { Meal, User } from '../../../utils/types';
 import { FirebaseService } from '../../../services/firebase.service';
-import { Observable, pluck, switchMap, take, tap } from 'rxjs';
-import { Router } from '@angular/router';
+import { filter, map, Observable, pluck, switchMap, tap } from 'rxjs';
+import { DocumentReference } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +11,7 @@ import { Router } from '@angular/router';
 export class MealsService {
   userMeals$: Observable<Meal[]>;
 
-  constructor(
-    private store: Store,
-    private firebase: FirebaseService,
-    private router: Router
-  ) {
+  constructor(private store: Store, private firebase: FirebaseService) {
     console.log('meal service');
     this.userMeals$ = this.uid.pipe(
       switchMap((uid) => firebase.getUserMeals(uid)),
@@ -27,22 +23,22 @@ export class MealsService {
     return this.store.selectedState<User>('user').pipe(pluck('uid'));
   }
 
-  addMeal(meal: Meal) {
-    this.uid
-      .pipe(
-        switchMap((uid) => this.firebase.addUserMeal(uid, meal)),
-        take(1)
-      )
-      .subscribe(() => this.backToMeals());
+  getMeal(id: string | null): Observable<Meal | {}> {
+    return this.store.selectedState<Meal[]>('meals').pipe(
+      filter(Boolean),
+      map((meals) => meals.find((meal) => meal.id === id) ?? {})
+    );
   }
 
-  backToMeals() {
-    this.router.navigate(['meals']);
+  addMeal(meal: Meal): Observable<DocumentReference<Meal>> {
+    return this.uid.pipe(
+      switchMap((uid) => this.firebase.addUserMeal(uid, meal))
+    );
   }
 
-  removeMeal(id: string) {
-    this.uid
-      .pipe(switchMap((uid) => this.firebase.deleteUserMeal(uid, id)))
-      .subscribe();
+  removeMeal(id: string): Observable<void> {
+    return this.uid.pipe(
+      switchMap((uid) => this.firebase.deleteUserMeal(uid, id))
+    );
   }
 }
