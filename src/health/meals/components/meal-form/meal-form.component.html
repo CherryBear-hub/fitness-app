@@ -34,6 +34,7 @@
         <button (click)="createMeal()" class="button" type="button">Create Meal</button>
         <a [routerLink]="['../']" class="button button--cancel">Cancel</a>
       </div>
+      <fit-panel-remove *ngIf="mealExists"></fit-panel-remove>
     </div>
   </form>
 </div>

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListItemComponent } from './list-item.component';
+import { PanelRemoveComponent } from './panel-remove.component';
 
-describe('MealItemComponent', () => {
-  let component: ListItemComponent;
-  let fixture: ComponentFixture<ListItemComponent>;
+describe('PanelRemoveComponent', () => {
+  let component: PanelRemoveComponent;
+  let fixture: ComponentFixture<PanelRemoveComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListItemComponent ]
+      declarations: [ PanelRemoveComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListItemComponent);
+    fixture = TestBed.createComponent(PanelRemoveComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

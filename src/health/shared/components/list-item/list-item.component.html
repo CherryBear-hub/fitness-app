@@ -1,0 +1,11 @@
+<div *ngIf="item" class="list-item">
+  <a [routerLink]="item | getMealRoute">
+    <p class="list-item__name">{{ item.name }}</p>
+    <p class="list-item__ingredients">
+      <span>
+        {{ item.ingredients }}
+      </span>
+    </p>
+  </a>
+  <fit-panel-remove (remove)="removeItem()"></fit-panel-remove>
+</div>

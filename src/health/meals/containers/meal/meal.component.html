@@ -3,12 +3,23 @@
     <h1>
       <img src="assets/img/food.svg" />
       <span *ngIf="meal$ | async as meal; else loadingTitle">
-        {{  meal.hasOwnProperty('name') ? "Edit" : "Create" }} Meal
+        {{ meal.hasOwnProperty("name") ? "Edit" : "Create" }} Meal
       </span>
       <ng-template #loadingTitle> Loading... </ng-template>
     </h1>
   </div>
-  <div>
-    <fit-meal-form (create)="addMeal($event)"></fit-meal-form>
+  <div *ngIf="meal$ | async as meal; else loadingForm">
+    <fit-meal-form
+      (create)="addMeal($event)"
+      (remove)="removeMeal($event)"
+      (update)="updateMeal($event)"
+      [meal]="meal"
+    ></fit-meal-form>
   </div>
+  <ng-template #loadingForm>
+    <div class="message">
+      <img src="assets/img/loading.svg" />
+      Fetching meal...
+    </div>
+  </ng-template>
 </div>

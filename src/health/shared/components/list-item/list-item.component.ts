@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {Meal} from "../../../../utils/types";
 
 @Component({
@@ -11,15 +11,7 @@ export class ListItemComponent {
   @Input() item?: Meal
   @Output() remove = new EventEmitter<Meal>();
 
-  showDelete = false;
-
-  constructor() { }
-
   removeItem() {
     this.remove.emit(this.item)
-  }
-
-  toggle() {
-    this.showDelete = !this.showDelete;
   }
 }

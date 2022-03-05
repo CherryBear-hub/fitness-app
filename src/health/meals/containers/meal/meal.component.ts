@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Meal } from '../../../../utils/types';
 import { MealsService } from '../../../shared/services/meals.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Observable, of, Subject, takeUntil} from 'rxjs';
+import { Observable, of, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'fit-meal',
@@ -42,4 +42,8 @@ export class MealComponent implements OnInit, OnDestroy {
   backToMeals() {
     this.router.navigate(['meals']);
   }
+
+  updateMeal(event: Meal) {}
+
+  removeMeal(event: Meal) {}
 }

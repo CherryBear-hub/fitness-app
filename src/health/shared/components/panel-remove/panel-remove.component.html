@@ -1,0 +1,8 @@
+<div *ngIf="showDelete" class="panel-remove">
+  <p>Delete item?</p>
+  <button (click)="removeItem()" class="confirm" type="button">Yes</button>
+  <button (click)="toggle()" class="cancel" type="button">No</button>
+</div>
+<button (click)="toggle()" class="trash" type="button">
+  <img src="assets/img/remove.svg" />
+</button>
