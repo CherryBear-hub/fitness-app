@@ -2,12 +2,18 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input, OnChanges,
-  OnInit,
-  Output, SimpleChanges,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
 } from '@angular/core';
-import { Meal } from '../../../../utils/types';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { instanceOfMeal, Meal } from '../../../../utils/types';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'fit-meal-form',
@@ -20,7 +26,7 @@ export class MealFormComponent implements OnChanges {
 
   @Output() create = new EventEmitter<Meal>();
   @Output() update = new EventEmitter<Meal>();
-  @Output() remove = new EventEmitter<Meal>();
+  @Output() remove = new EventEmitter<void>();
 
   form = this.formBuilder.group({
     name: ['', Validators.required],
@@ -36,11 +42,16 @@ export class MealFormComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(this.meal.hasOwnProperty('name')){
+    if (instanceOfMeal(this.meal)) {
       this.mealExists = true;
-      this.form.patchValue(this.meal)
-    }
-    else{
+      const value = this.meal;
+      this.form.patchValue(value);
+      this.ingredients.clear();
+
+      value.ingredients?.forEach((item) =>
+        this.ingredients.push(new FormControl(item))
+      );
+    } else {
       this.mealExists = false;
     }
   }
@@ -57,5 +68,15 @@ export class MealFormComponent implements OnChanges {
 
   removeIngredient(index: number) {
     this.ingredients.removeAt(index);
+  }
+
+  updateMeal() {
+    if (this.form.valid) {
+      this.update.emit(this.form.value);
+    }
+  }
+
+  removeMeal() {
+    this.remove.emit();
   }
 }

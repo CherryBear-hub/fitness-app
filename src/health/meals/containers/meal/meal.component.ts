@@ -43,7 +43,24 @@ export class MealComponent implements OnInit, OnDestroy {
     this.router.navigate(['meals']);
   }
 
-  updateMeal(event: Meal) {}
+  updateMeal(event: Meal) {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
 
-  removeMeal(event: Meal) {}
+    if (id) {
+      this.mealsService
+        .updateMeal(id, event)
+        .subscribe(() => this.backToMeals());
+    }
+  }
+
+  removeMeal() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+
+    if (id) {
+      this.mealsService
+        .removeMeal(id)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe(() => this.backToMeals());
+    }
+  }
 }

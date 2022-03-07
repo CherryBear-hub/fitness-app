@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/compat/firestore';
-import {from, Observable} from 'rxjs';
-import {Meal} from '../utils/types';
-import {Store} from 'store';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { from, Observable } from 'rxjs';
+import { Meal } from '../utils/types';
+import { Store } from 'store';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class FirebaseService {
       .valueChanges({ idField: 'id' });
   }
 
-  getUserMeal(uid: string, id: string): Observable<Meal | undefined>{
+  getUserMeal(uid: string, id: string): Observable<Meal | undefined> {
     return this.db.doc<Meal>(`user/${uid}/meals/${id}`).valueChanges();
   }
 
@@ -25,7 +25,11 @@ export class FirebaseService {
     return from(this.db.collection<Meal>(`user/${uid}/meals`).add(meal));
   }
 
-  deleteUserMeal(uid: string, id: string) {
+  updateUserMeal(uid: string, id: string, meal: Meal): Observable<void> {
+    return from(this.db.doc<Meal>(`user/${uid}/meals/${id}`).update(meal));
+  }
+
+  deleteUserMeal(uid: string, id: string): Observable<void> {
     return from(this.db.doc<Meal>(`user/${uid}/meals/${id}`).delete());
   }
 }

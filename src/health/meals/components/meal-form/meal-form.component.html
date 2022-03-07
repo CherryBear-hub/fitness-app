@@ -8,7 +8,12 @@
           placeholder="e.g. English Breakfast"
           type="text"
         />
-        <div *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched" class="error">
+        <div
+          *ngIf="
+            form.get('name')?.hasError('required') && form.get('name')?.touched
+          "
+          class="error"
+        >
           Meal name is required
         </div>
       </label>
@@ -17,13 +22,13 @@
       <div class="meal-form__subtitle">
         <h3>Food</h3>
         <button (click)="addIngredient()" class="meal-form__add" type="button">
-          <img src="assets/img/add-white.svg">
+          <img src="assets/img/add-white.svg" />
           Add food
         </button>
       </div>
       <div formArrayName="ingredients">
         <label *ngFor="let c of ingredients.controls; index as i">
-          <input [formControlName]="i" placeholder="e.g. Eggs">
+          <input [formControlName]="i" placeholder="e.g. Eggs" />
           <span (click)="removeIngredient(i)" class="meal-form__remove"></span>
         </label>
       </div>
@@ -31,10 +36,26 @@
 
     <div class="meal-form__submit">
       <div>
-        <button (click)="createMeal()" class="button" type="button">Create Meal</button>
+        <button
+          (click)="updateMeal()"
+          *ngIf="mealExists; else createItem"
+          class="button"
+          type="button"
+        >
+          Save
+        </button>
+        <ng-template #createItem>
+          <button (click)="createMeal()" class="button" type="button">
+            Create Meal
+          </button>
+        </ng-template>
+
         <a [routerLink]="['../']" class="button button--cancel">Cancel</a>
       </div>
-      <fit-panel-remove *ngIf="mealExists"></fit-panel-remove>
+      <fit-panel-remove
+        (remove)="removeMeal()"
+        *ngIf="mealExists"
+      ></fit-panel-remove>
     </div>
   </form>
 </div>

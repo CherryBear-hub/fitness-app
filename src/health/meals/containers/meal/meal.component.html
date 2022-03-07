@@ -11,7 +11,7 @@
   <div *ngIf="meal$ | async as meal; else loadingForm">
     <fit-meal-form
       (create)="addMeal($event)"
-      (remove)="removeMeal($event)"
+      (remove)="removeMeal()"
       (update)="updateMeal($event)"
       [meal]="meal"
     ></fit-meal-form>

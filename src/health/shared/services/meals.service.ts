@@ -36,6 +36,12 @@ export class MealsService {
     );
   }
 
+  updateMeal(id: string, meal: Meal) {
+    return this.uid.pipe(
+      switchMap((uid) => this.firebase.updateUserMeal(uid, id, meal))
+    );
+  }
+
   removeMeal(id: string): Observable<void> {
     return this.uid.pipe(
       switchMap((uid) => this.firebase.deleteUserMeal(uid, id))
