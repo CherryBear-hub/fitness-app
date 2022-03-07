@@ -1,11 +1,20 @@
-<div *ngIf="item" class="list-item">
-  <a [routerLink]="item | getMealRoute">
-    <p class="list-item__name">{{ item.name }}</p>
+<div *ngIf="meal; else workoutItem" class="list-item">
+  <a [routerLink]="meal | getMealRoute">
+    <p class="list-item__name">{{ meal.name }}</p>
     <p class="list-item__ingredients">
       <span>
-        {{ item.ingredients }}
+        {{ meal.ingredients }}
       </span>
     </p>
   </a>
-  <fit-panel-remove (remove)="removeItem()"></fit-panel-remove>
+  <fit-panel-remove (remove)="deleteMeal()"></fit-panel-remove>
 </div>
+
+<ng-template #workoutItem>
+  <div *ngIf="workout" class="list-item">
+    <a [routerLink]="workout | getWorkoutRoute">
+      <p class="list-item__name">{{ workout.name }}</p>
+    </a>
+    <fit-panel-remove (remove)="deleteWorkout()"></fit-panel-remove>
+  </div>
+</ng-template>

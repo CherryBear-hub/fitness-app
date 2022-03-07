@@ -5,13 +5,13 @@ import {
   pluck,
   scan,
   Subject,
-  tap,
 } from 'rxjs';
-import { Meal, User } from './utils/types';
+import { Meal, User, Workout } from './utils/types';
 
 export interface State {
   user?: User;
   meals?: Meal[];
+  workouts?: Workout[];
 
   [key: string]: any;
 }
@@ -29,7 +29,7 @@ export class Store {
     this.stateUpdate = new Subject<State>();
 
     this.stateUpdate
-      .pipe(scan((acc, cur) => ({...acc, ...cur}), state))
+      .pipe(scan((acc, cur) => ({ ...acc, ...cur }), state))
       .subscribe(this.store);
   }
 

@@ -8,3 +8,12 @@ export class GetMealRoutePipe implements PipeTransform {
     return ['../meals', value.id];
   }
 }
+
+@Pipe({
+  name: 'getWorkoutRoute',
+})
+export class GetWorkoutRoutePipe implements PipeTransform {
+  transform(value: Record<'id', string>): string[] {
+    return ['../workouts', value.id];
+  }
+}

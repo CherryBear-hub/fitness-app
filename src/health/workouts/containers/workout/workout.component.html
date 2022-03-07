@@ -1,0 +1,25 @@
+<div class="workout">
+  <div class="workout__title">
+    <h1>
+      <img src="assets/img/workout.svg" />
+      <span *ngIf="workout$ | async as workout; else loadingTitle">
+        {{ workout.hasOwnProperty("name") ? "Edit" : "Create" }} workout
+      </span>
+      <ng-template #loadingTitle> Loading... </ng-template>
+    </h1>
+  </div>
+  <div *ngIf="workout$ | async as workout; else loadingForm">
+    <fit-workout-form
+      (create)="addWorkout($event)"
+      (remove)="removeWorkout()"
+      (update)="updateWorkout($event)"
+      [workout]="workout"
+    ></fit-workout-form>
+  </div>
+  <ng-template #loadingForm>
+    <div class="message">
+      <img src="assets/img/loading.svg" />
+      Fetching workout...
+    </div>
+  </ng-template>
+</div>

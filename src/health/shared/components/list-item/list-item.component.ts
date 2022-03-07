@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {Meal} from "../../../../utils/types";
+import {Meal, Workout} from "../../../../utils/types";
 
 @Component({
   selector: 'fit-list-item',
@@ -8,10 +8,16 @@ import {Meal} from "../../../../utils/types";
   styleUrls: ['./list-item.component.scss']
 })
 export class ListItemComponent {
-  @Input() item?: Meal
-  @Output() remove = new EventEmitter<Meal>();
+  @Input() meal?: Meal;
+  @Input() workout?: Workout;
+  @Output() removeMeal = new EventEmitter<Meal>();
+  @Output() removeWorkout = new EventEmitter<Workout>();
 
-  removeItem() {
-    this.remove.emit(this.item)
+  deleteMeal() {
+    this.removeMeal.emit(this.meal);
+  }
+
+  deleteWorkout(){
+    this.removeWorkout.emit(this.workout);
   }
 }

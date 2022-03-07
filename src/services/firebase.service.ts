@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from, Observable } from 'rxjs';
-import { Meal } from '../utils/types';
+import {Meal, Workout} from '../utils/types';
 import { Store } from 'store';
 
 @Injectable({
@@ -31,5 +31,29 @@ export class FirebaseService {
 
   deleteUserMeal(uid: string, id: string): Observable<void> {
     return from(this.db.doc<Meal>(`user/${uid}/meals/${id}`).delete());
+  }
+
+  getUserWorkouts(uid: string): Observable<Workout[]> {
+    return this.db
+      .doc(`user/${uid}`)
+      .collection<Workout>('workouts')
+      .valueChanges({ idField: 'id' });
+  }
+
+
+  getUserWorkout(uid: string, id: string): Observable<Workout | undefined> {
+    return this.db.doc<Workout>(`user/${uid}/workouts/${id}`).valueChanges();
+  }
+
+  addUserWorkout(uid: string, workout: Workout) {
+    return from(this.db.collection<Workout>(`user/${uid}/workouts`).add(workout));
+  }
+
+  updateUserWorkout(uid: string, id: string, workout: Workout): Observable<void> {
+    return from(this.db.doc<Workout>(`user/${uid}/workouts/${id}`).update(workout));
+  }
+
+  deleteUserWorkout(uid: string, id: string): Observable<void> {
+    return from(this.db.doc<Workout>(`user/${uid}/workouts/${id}`).delete());
   }
 }
