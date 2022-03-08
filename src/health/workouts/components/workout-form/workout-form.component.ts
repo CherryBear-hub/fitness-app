@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {instanceOfWorkout, Workout} from '../../../../utils/types';
+import {instanceOfWorkout, Workout, WorkoutType} from '../../../../utils/types';
 
 @Component({
   selector: 'fit-workout-form',
@@ -19,6 +19,7 @@ export class WorkoutFormComponent implements OnChanges{
 
   form = this.formBuilder.group({
     name: ['', Validators.required],
+    type: WorkoutType.Strength
   });
 
   constructor(private formBuilder: FormBuilder) {}
