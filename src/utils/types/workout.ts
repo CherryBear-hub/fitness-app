@@ -2,8 +2,15 @@ export interface Workout {
   id: string;
   name: string;
   type: 'endurance' | 'strength';
-  endurance: any;
-  strength: any;
+  endurance: {
+    distance: number,
+    duration: number,
+  };
+  strength: {
+    reps: number,
+    sets: number,
+    weight: number,
+  };
 }
 
 export enum WorkoutType {

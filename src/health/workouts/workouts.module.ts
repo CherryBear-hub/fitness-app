@@ -7,6 +7,7 @@ import { WorkoutComponent } from './containers/workout/workout.component';
 import { WorkoutFormComponent } from './components/workout-form/workout-form.component';
 import {SharedModule} from "../shared/shared.module";
 import { WorkoutTypeComponent } from './components/workout-type/workout-type.component';
+import { WorkoutInfoPipe } from '../shared/pipes/workout-info.pipe';
 
 export const ROUTES: Routes = [
   {
