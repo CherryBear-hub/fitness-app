@@ -1,3 +1,4 @@
 <div class="calender">
   <fit-schedule-controls (move)="onChange($event)" [selected]="selectedDay"></fit-schedule-controls>
+  <fit-schedule-days (select)="selectDay($event)" [selected]="selectedDayIndex"></fit-schedule-days>
 </div>

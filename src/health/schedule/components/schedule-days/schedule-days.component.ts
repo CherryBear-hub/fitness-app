@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'fit-schedule-days',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './schedule-days.component.html',
   styleUrls: ['./schedule-days.component.scss']
 })
-export class ScheduleDaysComponent implements OnInit {
+export class ScheduleDaysComponent {
+  days = ['M', 'T', 'W', 'T', 'S', 'S']
+  @Input() selected: number = 0;
+  @Output() select = new EventEmitter<number>()
 
-  constructor() { }
-
-  ngOnInit(): void {
+  selectDay(index: number) {
+    this.select.emit(index)
   }
-
 }
