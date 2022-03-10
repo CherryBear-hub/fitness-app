@@ -12,12 +12,16 @@ export interface State {
   user?: User;
   meals?: Meal[];
   workouts?: Workout[];
+  date?: Date;
 
   [key: string]: any;
 }
 
 const state: State = {
   user: undefined,
+  meals: [],
+  workouts: [],
+  date: new Date()
 };
 
 export class Store {

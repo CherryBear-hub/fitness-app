@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'fit-schedule-calendar',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./schedule-calendar.component.scss']
 })
 export class ScheduleCalendarComponent implements OnInit {
+
+  @Input() date?: Date | null;
 
   constructor() { }
 
