@@ -27,4 +27,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  changeDate(date: Date){
+    this.scheduleService.updateDate(date);
+  }
 }
