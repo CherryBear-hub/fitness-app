@@ -6,11 +6,12 @@ import {
   scan,
   Subject,
 } from 'rxjs';
-import { Meal, User, Workout } from './utils/types';
+import { Meal, ScheduleList, User, Workout } from './utils/types';
 
 export interface State {
   user?: User;
   meals?: Meal[];
+  schedule?: ScheduleList;
   workouts?: Workout[];
   date?: Date;
 
@@ -21,7 +22,7 @@ const state: State = {
   user: undefined,
   meals: [],
   workouts: [],
-  date: new Date()
+  date: new Date(),
 };
 
 export class Store {

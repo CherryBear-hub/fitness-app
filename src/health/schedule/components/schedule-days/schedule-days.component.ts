@@ -7,8 +7,8 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@
   styleUrls: ['./schedule-days.component.scss']
 })
 export class ScheduleDaysComponent {
-  days = ['M', 'T', 'W', 'T', 'S', 'S']
-  @Input() selected: number = 0;
+  days = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+  @Input() selected = 0;
   @Output() select = new EventEmitter<number>()
 
   selectDay(index: number) {

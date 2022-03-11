@@ -1,3 +1,7 @@
 <div class="schedule">
-  <fit-schedule-calendar (change)="changeDate($event)" [date]="date$ | async"></fit-schedule-calendar>
+  <fit-schedule-calendar
+    (changeDate)="changeDate($event)"
+    [date]="date$ | async"
+    [items]="schedule$ | async"
+  ></fit-schedule-calendar>
 </div>

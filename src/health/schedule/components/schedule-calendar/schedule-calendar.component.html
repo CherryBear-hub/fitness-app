@@ -1,4 +1,16 @@
 <div class="calender">
-  <fit-schedule-controls (move)="onChange($event)" [selected]="selectedDay"></fit-schedule-controls>
-  <fit-schedule-days (select)="selectDay($event)" [selected]="selectedDayIndex"></fit-schedule-days>
+  <fit-schedule-controls
+    (move)="onChangeDate($event)"
+    [selected]="selectedDay"
+  ></fit-schedule-controls>
+  <fit-schedule-days
+    (select)="selectDay($event)"
+    [selected]="selectedDayIndex"
+  ></fit-schedule-days>
+  <fit-schedule-section
+    *ngFor="let section of sections"
+    [name]="section.name"
+    [section]="getSection(section.key)"
+  >
+  </fit-schedule-section>
 </div>

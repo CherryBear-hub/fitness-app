@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from, Observable } from 'rxjs';
-import {Meal, Workout} from '../utils/types';
+import {Meal, ScheduleItem, Workout} from '../utils/types';
 import { Store } from 'store';
 
 @Injectable({
@@ -40,20 +40,44 @@ export class FirebaseService {
       .valueChanges({ idField: 'id' });
   }
 
-
   getUserWorkout(uid: string, id: string): Observable<Workout | undefined> {
     return this.db.doc<Workout>(`user/${uid}/workouts/${id}`).valueChanges();
   }
 
   addUserWorkout(uid: string, workout: Workout) {
-    return from(this.db.collection<Workout>(`user/${uid}/workouts`).add(workout));
+    return from(
+      this.db.collection<Workout>(`user/${uid}/workouts`).add(workout)
+    );
   }
 
-  updateUserWorkout(uid: string, id: string, workout: Workout): Observable<void> {
-    return from(this.db.doc<Workout>(`user/${uid}/workouts/${id}`).update(workout));
+  updateUserWorkout(
+    uid: string,
+    id: string,
+    workout: Workout
+  ): Observable<void> {
+    return from(
+      this.db.doc<Workout>(`user/${uid}/workouts/${id}`).update(workout)
+    );
   }
 
   deleteUserWorkout(uid: string, id: string): Observable<void> {
     return from(this.db.doc<Workout>(`user/${uid}/workouts/${id}`).delete());
+  }
+
+  getUserSchedule(
+    uid: string,
+    startAt: number,
+    endAt: number
+  ): Observable<ScheduleItem[]> {
+    return from(
+      this.db
+        .collection<ScheduleItem>(`user/${uid}/schedule`, (ref) =>
+          ref
+            .orderBy('timestamp')
+            .where('timestamp', '>=', startAt)
+            .where('timestamp', '<', endAt)
+        )
+        .valueChanges()
+    );
   }
 }

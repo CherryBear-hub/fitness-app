@@ -5,6 +5,7 @@ import {RouterModule, Routes} from "@angular/router";
 import { ScheduleCalendarComponent } from './components/schedule-calendar/schedule-calendar.component';
 import { ScheduleDaysComponent } from './components/schedule-days/schedule-days.component';
 import { ScheduleControlsComponent } from './components/schedule-controls/schedule-controls.component';
+import { ScheduleSectionComponent } from './components/schedule-section/schedule-section.component';
 
 export const ROUTES: Routes = [
   {
@@ -18,7 +19,8 @@ export const ROUTES: Routes = [
     ScheduleComponent,
     ScheduleCalendarComponent,
     ScheduleDaysComponent,
-    ScheduleControlsComponent
+    ScheduleControlsComponent,
+    ScheduleSectionComponent
   ],
   imports: [
     CommonModule,
