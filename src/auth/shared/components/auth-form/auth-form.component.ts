@@ -25,6 +25,7 @@ export class AuthFormComponent{
     }
   }
 
+  //TODO: Better way than getters. Reusable pipe?
   get passwordInvalid(): boolean {
     const control = this.form.get('password');
     return !!control?.hasError('required') && control?.touched;

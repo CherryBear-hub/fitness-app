@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {Store} from 'store';
 import {User} from '../../../../utils/types';
+import {from, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -22,15 +23,16 @@ export class AuthService {
     });
   }
 
+  //TODO: Complex unused return type
   createUser(email: string, password: string) {
-    return this.auth.createUserWithEmailAndPassword(email, password);
+    return from(this.auth.createUserWithEmailAndPassword(email, password));
   }
 
   loginUser(email: string, password: string) {
-    return this.auth.signInWithEmailAndPassword(email, password);
+    return from(this.auth.signInWithEmailAndPassword(email, password));
   }
 
-  logoutUser() {
-    return this.auth.signOut();
+  logoutUser(): Observable<void> {
+    return from(this.auth.signOut());
   }
 }
