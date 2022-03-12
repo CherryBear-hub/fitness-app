@@ -10,7 +10,14 @@ import {
 } from 'rxjs';
 import { Store } from 'store';
 import { FirebaseService } from '../../../services/firebase.service';
-import { ScheduleItem, ScheduleList, User } from '../../../utils/types';
+import {
+  Meal,
+  ScheduleItem,
+  ScheduleList,
+  ScheduleSection,
+  User,
+  Workout,
+} from '../../../utils/types';
 
 export interface DayLimit {
   startAt: number;
@@ -22,7 +29,7 @@ export interface DayLimit {
 })
 export class ScheduleService {
   private date$ = new BehaviorSubject(new Date());
-  private section$ = new Subject();
+  private section$ = new Subject<ScheduleSection>();
 
   schedule$: Observable<ScheduleList> = this.date$.pipe(
     tap((value) => this.store.updateState({ date: value })),
@@ -34,6 +41,13 @@ export class ScheduleService {
 
   selected$ = this.section$.pipe(
     tap((value) => this.store.updateState({ selected: value }))
+  );
+
+  list$ = this.section$.pipe(
+    switchMap((value: ScheduleSection) =>
+      this.store.selectedState<Meal[] | Workout[]>(value.type)
+    ),
+    tap((value) => this.store.updateState({ list: value }))
   );
 
   constructor(private store: Store, private firebase: FirebaseService) {}
@@ -72,7 +86,7 @@ export class ScheduleService {
     return mapped;
   }
 
-  selectSection(event: any) {
+  selectSection(event: ScheduleSection) {
     this.section$.next(event);
   }
 

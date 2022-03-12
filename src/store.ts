@@ -15,6 +15,7 @@ export interface State {
   selected?: any;
   workouts?: Workout[];
   date?: Date;
+  list?: Meal[] | Workout[];
 
   [key: string]: any;
 }

@@ -1,0 +1,55 @@
+<div class="schedule-assign">
+  <div class="schedule-assign__modal">
+    <div class="schedule-assign__title">
+      <img
+        src="assets/img/{{
+          section.type === 'workouts' ? 'workout' : 'food'
+        }}.svg"
+      />
+      <h1>Assign {{ section.type }}</h1>
+      <a [routerLink]="getRoute(section.type)" class="btn__add">
+        <img src="assets/img/add-white.svg" />
+        New {{ section.type }}
+      </a>
+    </div>
+    <div class="schedule-assign__list">
+      <ng-container *ngIf="list && !!list.length; else emptyPlaceholder">
+        <ng-container *ngIf="section.type === 'workouts'; else meals">
+          <div
+            (click)="toggleItem(item.name)"
+            *ngFor="let item of workoutList"
+            [class.active]="exists(item.name)"
+          >
+            {{ item.name }}
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="schedule-assign__submit">
+      <div>
+        <button (click)="updateAssign()" class="button" type="button">
+          Update
+        </button>
+        <button (click)="cancelAssign()" class="button button--cancel" type="button">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #emptyPlaceholder>
+  <span class="schedule-assign__empty">
+    <img src="assets/img/face.svg" />
+    Nothing here to assign
+  </span>
+</ng-template>
+<ng-template #meals>
+  <div
+    (click)="toggleItem(item.name)"
+    *ngFor="let item of mealList"
+    [class.active]="exists(item.name)"
+  >
+    {{ item.name }}
+  </div>
+</ng-template>

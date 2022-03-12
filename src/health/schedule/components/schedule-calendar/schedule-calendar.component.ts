@@ -8,7 +8,7 @@ import {
 import {
   SCHEDULE_SECTIONS,
   ScheduleItem,
-  ScheduleList,
+  ScheduleList, ScheduleSection,
 } from '../../../../utils/types';
 
 @Component({
@@ -32,7 +32,7 @@ export class ScheduleCalendarComponent implements OnChanges {
   @Input() items?: ScheduleList | null;
 
   @Output() changeDate = new EventEmitter<Date>();
-  @Output() select = new EventEmitter<any>();
+  @Output() select = new EventEmitter<ScheduleSection>();
 
   private static getStartOfTheWeek(date: Date) {
     const day = date.getDay();
@@ -87,6 +87,6 @@ export class ScheduleCalendarComponent implements OnChanges {
       section,
       day,
       data,
-    });
+    } as ScheduleSection);
   }
 }

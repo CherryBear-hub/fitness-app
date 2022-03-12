@@ -10,12 +10,20 @@ export interface ScheduleItem {
 }
 
 export interface ScheduleList {
-  morning?: ScheduleItem,
-  lunch?: ScheduleItem,
-  evening?: ScheduleItem,
-  snacks?: ScheduleItem,
+  morning?: ScheduleItem;
+  lunch?: ScheduleItem;
+  evening?: ScheduleItem;
+  snacks?: ScheduleItem;
 
-  [key:string]: any
+  [key: string]: any;
+}
+
+export interface ScheduleSection {
+  type: 'meal' | 'workout';
+  assigned: any;
+  section: 'morning' | 'lunch' | 'evening' | 'snacks';
+  day: Date;
+  data: ScheduleItem;
 }
 
 export const SCHEDULE_SECTIONS = [
@@ -23,5 +31,5 @@ export const SCHEDULE_SECTIONS = [
   { key: 'lunch', name: 'Lunch' },
   { key: 'evening', name: 'Evening' },
   { key: 'snacks', name: 'Snacks and Drinks' },
-]
+];
 

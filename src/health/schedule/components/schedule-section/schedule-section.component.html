@@ -11,7 +11,7 @@
       <span>{{ section.meals | json }}</span>
     </div>
     <div
-      (click)="onSelect('workout', section.workouts)"
+      (click)="onSelect('workouts', section.workouts)"
       *ngIf="section && section.workouts; else addWorkout"
       class="schedule-section__item workout"
     >
@@ -26,7 +26,7 @@
   </div>
 </ng-template>
 <ng-template #addWorkout>
-  <div (click)="onSelect('meals')" class="schedule-section__item">
+  <div (click)="onSelect('workouts')" class="schedule-section__item">
     Assign workout
   </div>
 </ng-template>
