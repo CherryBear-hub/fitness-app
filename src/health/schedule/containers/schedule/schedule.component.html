@@ -9,5 +9,7 @@
     *ngIf="open"
     [list]="list$ | async"
     [section]="selected$ | async"
+    (cancel)="closeAssign()"
+    (update)="assignItem($event)"
   ></fit-schedule-assign>
 </div>

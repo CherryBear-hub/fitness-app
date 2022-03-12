@@ -7,6 +7,7 @@ import {
   Subject,
   switchMap,
   tap,
+  withLatestFrom,
 } from 'rxjs';
 import { Store } from 'store';
 import { FirebaseService } from '../../../services/firebase.service';
@@ -30,6 +31,7 @@ export interface DayLimit {
 export class ScheduleService {
   private date$ = new BehaviorSubject(new Date());
   private section$ = new Subject<ScheduleSection>();
+  private itemList$ = new Subject<any>();
 
   schedule$: Observable<ScheduleList> = this.date$.pipe(
     tap((value) => this.store.updateState({ date: value })),
@@ -50,6 +52,32 @@ export class ScheduleService {
     tap((value) => this.store.updateState({ list: value }))
   );
 
+  items$ = this.itemList$.pipe(
+    withLatestFrom(this.section$),
+    switchMap(([items, section]) => {
+      console.log(items);
+      console.log(section);
+      const id = section.data.id;
+
+      const defaults: ScheduleItem = {
+        workouts: [],
+        meals: [],
+        section: section.section,
+        timestamp: new Date(section.day).getTime(),
+      };
+
+      const payload = { ...(id ? section.data : defaults), ...items };
+
+      console.log(payload);
+
+      if (id) {
+        return this.updateSection(id, payload);
+      } else {
+        return this.createSection(payload);
+      }
+    })
+  );
+
   constructor(private store: Store, private firebase: FirebaseService) {}
 
   get uid(): Observable<string> {
@@ -58,6 +86,14 @@ export class ScheduleService {
 
   updateDate(date: Date) {
     this.date$.next(date);
+  }
+
+  selectSection(event: ScheduleSection) {
+    this.section$.next(event);
+  }
+
+  updateItems(items: string[]) {
+    this.itemList$.next(items);
   }
 
   private static getDaysEndpoints(day: Date): DayLimit {
@@ -86,16 +122,24 @@ export class ScheduleService {
     return mapped;
   }
 
-  selectSection(event: ScheduleSection) {
-    this.section$.next(event);
-  }
-
   private getSchedule(
     startAt: number,
     endAt: number
   ): Observable<ScheduleItem[]> {
     return this.uid.pipe(
       switchMap((uid) => this.firebase.getUserSchedule(uid, startAt, endAt))
+    );
+  }
+
+  private updateSection(id: string, payload: ScheduleItem): Observable<void> {
+    return this.uid.pipe(
+      switchMap((uid) => this.firebase.updateUserSchedule(uid, id, payload))
+    );
+  }
+
+  private createSection(payload: any) {
+    return this.uid.pipe(
+      switchMap((uid) => this.firebase.addUserSchedule(uid, payload))
     );
   }
 }

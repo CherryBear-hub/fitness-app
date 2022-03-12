@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from, Observable } from 'rxjs';
-import {Meal, ScheduleItem, Workout} from '../utils/types';
+import { Meal, ScheduleItem, Workout } from '../utils/types';
 import { Store } from 'store';
 
 @Injectable({
@@ -71,13 +71,29 @@ export class FirebaseService {
   ): Observable<ScheduleItem[]> {
     return from(
       this.db
-        .collection<ScheduleItem>(`user/${uid}/schedule`, (ref) =>
+        .collection<ScheduleItem>(`user/${uid}/schedules`, (ref) =>
           ref
             .orderBy('timestamp')
             .where('timestamp', '>=', startAt)
             .where('timestamp', '<', endAt)
         )
-        .valueChanges()
+        .valueChanges({idField: 'id'})
+    );
+  }
+
+  updateUserSchedule(
+    uid: string,
+    id: string,
+    payload: ScheduleItem
+  ): Observable<void> {
+    return from(
+      this.db.doc<ScheduleItem>(`user/${uid}/schedules/${id}`).update(payload)
+    );
+  }
+
+  addUserSchedule(uid: string, payload: ScheduleItem) {
+    return from(
+      this.db.collection<ScheduleItem>(`user/${uid}/schedules`).add(payload)
     );
   }
 }
