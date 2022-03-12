@@ -23,7 +23,6 @@ export class ScheduleCalendarComponent implements OnChanges {
 
   sections = SCHEDULE_SECTIONS;
 
-  @Output() changeDate = new EventEmitter<Date>();
   @Input() set date(date: Date | null) {
     if (date) {
       this.selectedDay = new Date(date.getTime());
@@ -31,6 +30,9 @@ export class ScheduleCalendarComponent implements OnChanges {
   }
 
   @Input() items?: ScheduleList | null;
+
+  @Output() changeDate = new EventEmitter<Date>();
+  @Output() select = new EventEmitter<any>();
 
   private static getStartOfTheWeek(date: Date) {
     const day = date.getDay();
@@ -52,8 +54,12 @@ export class ScheduleCalendarComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    this.selectedDayIndex = ScheduleCalendarComponent.getToday(this.selectedDay);
-    this.selectedWeek = ScheduleCalendarComponent.getStartOfTheWeek(new Date(this.selectedDay));
+    this.selectedDayIndex = ScheduleCalendarComponent.getToday(
+      this.selectedDay
+    );
+    this.selectedWeek = ScheduleCalendarComponent.getStartOfTheWeek(
+      new Date(this.selectedDay)
+    );
   }
 
   onChangeDate(weekOffset: number) {
@@ -71,5 +77,16 @@ export class ScheduleCalendarComponent implements OnChanges {
     const selectedDay = new Date(this.selectedWeek);
     selectedDay.setDate(selectedDay.getDate() + index);
     this.changeDate.emit(selectedDay);
+  }
+
+  selectSection({ type, assigned, data }: any, section: string) {
+    const day = this.selectedDay;
+    this.select.emit({
+      type,
+      assigned,
+      section,
+      day,
+      data,
+    });
   }
 }

@@ -3,5 +3,6 @@
     (changeDate)="changeDate($event)"
     [date]="date$ | async"
     [items]="schedule$ | async"
+    (select)="changeSection($event)"
   ></fit-schedule-calendar>
 </div>

@@ -12,6 +12,7 @@ export interface State {
   user?: User;
   meals?: Meal[];
   schedule?: ScheduleList;
+  selected?: any;
   workouts?: Workout[];
   date?: Date;
 
