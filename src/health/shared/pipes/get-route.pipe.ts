@@ -1,19 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'getMealRoute',
+  name: 'getRoute',
 })
-export class GetMealRoutePipe implements PipeTransform {
-  transform(value: Record<'id', string>): string[] {
-    return ['../meals', value.id];
-  }
-}
-
-@Pipe({
-  name: 'getWorkoutRoute',
-})
-export class GetWorkoutRoutePipe implements PipeTransform {
-  transform(value: Record<'id', string>): string[] {
-    return ['../workouts', value.id];
+export class GetRoutePipe implements PipeTransform {
+  transform(value: Record<'id', string>, parentType: 'meals' | 'workouts'): string[] {
+    return [`../${parentType}`, value.id];
   }
 }

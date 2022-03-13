@@ -1,5 +1,5 @@
 <div *ngIf="meal; else workoutItem" class="list-item">
-  <a [routerLink]="meal | getMealRoute">
+  <a [routerLink]="meal | getRoute: 'meals'">
     <p class="list-item__name">{{ meal.name }}</p>
     <p class="list-item__ingredients">
       <span>
@@ -12,7 +12,7 @@
 
 <ng-template #workoutItem>
   <div *ngIf="workout" class="list-item">
-    <a [routerLink]="workout | getWorkoutRoute">
+    <a [routerLink]="workout | getRoute: 'workouts'">
       <p class="list-item__name">{{ workout.name }}</p>
       <p class="list-item__ingredients">
       <span>

@@ -66,8 +66,6 @@ export class ScheduleService {
 
       const payload = { ...(id ? section.data : defaults), ...items };
 
-      console.log(payload);
-
       if (id) {
         return this.updateSection(id, payload);
       } else {
