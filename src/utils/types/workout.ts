@@ -1,7 +1,7 @@
 export interface Workout {
   id: string;
   name: string;
-  type: 'endurance' | 'strength';
+  type: WorkoutType;
   endurance: {
     distance: number,
     duration: number,
@@ -19,5 +19,5 @@ export enum WorkoutType {
 }
 
 export function instanceOfWorkout(data: any): data is Workout {
-  return 'id' in data && 'name' in data; //'strength' in data && 'endurance' in data;
+  return 'id' in data && 'name' in data && 'type' in data;
 }

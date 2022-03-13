@@ -37,17 +37,20 @@ export class MealFormComponent implements OnChanges {
 
   constructor(private formBuilder: FormBuilder) {}
 
+  //TODO: Something better than a getter
   get ingredients() {
     return this.form.get('ingredients') as FormArray;
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    //TODO: Better way of checking if meal exists
     if (instanceOfMeal(this.meal)) {
       this.mealExists = true;
       const value = this.meal;
       this.form.patchValue(value);
       this.ingredients.clear();
 
+      //TODO: Better way of adding to nested form array
       value.ingredients?.forEach((item) =>
         this.ingredients.push(new FormControl(item))
       );
@@ -62,14 +65,6 @@ export class MealFormComponent implements OnChanges {
     }
   }
 
-  addIngredient() {
-    this.ingredients.push(this.formBuilder.control(''));
-  }
-
-  removeIngredient(index: number) {
-    this.ingredients.removeAt(index);
-  }
-
   updateMeal() {
     if (this.form.valid) {
       this.update.emit(this.form.value);
@@ -78,5 +73,13 @@ export class MealFormComponent implements OnChanges {
 
   removeMeal() {
     this.remove.emit();
+  }
+
+  addIngredient() {
+    this.ingredients.push(this.formBuilder.control(''));
+  }
+
+  removeIngredient(index: number) {
+    this.ingredients.removeAt(index);
   }
 }

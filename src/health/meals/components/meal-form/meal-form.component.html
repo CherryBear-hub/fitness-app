@@ -8,6 +8,7 @@
           placeholder="e.g. English Breakfast"
           type="text"
         />
+        <!--TODO: Better way of checking error. Reusable pipe?-->
         <div
           *ngIf="
             form.get('name')?.hasError('required') && form.get('name')?.touched
@@ -22,10 +23,11 @@
       <div class="meal-form__subtitle">
         <h3>Food</h3>
         <button (click)="addIngredient()" class="meal-form__add" type="button">
-          <img src="assets/img/add-white.svg" />
+          <img alt="white plus" src="assets/img/add-white.svg"/>
           Add food
         </button>
       </div>
+      <!--TODO: better way of binding formarray. Already pass formArrayName, getter seems like a duplication -->
       <div formArrayName="ingredients">
         <label *ngFor="let c of ingredients.controls; index as i">
           <input [formControlName]="i" placeholder="e.g. Eggs" />

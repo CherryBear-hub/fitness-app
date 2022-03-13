@@ -1,8 +1,9 @@
 <div class="meal">
   <div class="meal__title">
     <h1>
-      <img src="assets/img/food.svg" />
+      <img alt="food" src="assets/img/food.svg"/>
       <span *ngIf="meal$ | async as meal; else loadingTitle">
+        <!--TODO: better check for if not empty object-->
         {{ meal.hasOwnProperty("name") ? "Edit" : "Create" }} Meal
       </span>
       <ng-template #loadingTitle> Loading... </ng-template>
@@ -18,7 +19,7 @@
   </div>
   <ng-template #loadingForm>
     <div class="message">
-      <img src="assets/img/loading.svg" />
+      <img alt="loading" src="assets/img/loading.svg"/>
       Fetching meal...
     </div>
   </ng-template>

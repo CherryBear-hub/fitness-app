@@ -44,6 +44,7 @@ export class MealComponent implements OnInit, OnDestroy {
   }
 
   updateMeal(event: Meal) {
+    //TODO: seems like duplication. But saving id as property also has risks
     const id = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (id) {

@@ -26,11 +26,13 @@ export class MealsService {
   getMeal(id: string | null): Observable<Meal | {}> {
     return this.store.selectedState<Meal[]>('meals').pipe(
       filter(Boolean),
+      //TODO: better way to show a new meal. null - does not work since async give you null on loading
       map((meals) => meals.find((meal) => meal.id === id) ?? {})
     );
   }
 
   addMeal(meal: Meal): Observable<DocumentReference<Meal>> {
+    //TODO: always using uid getter as an observable. Maybe move to firebase service an have it as static property. withLatestFrom?
     return this.uid.pipe(
       switchMap((uid) => this.firebase.addUserMeal(uid, meal))
     );

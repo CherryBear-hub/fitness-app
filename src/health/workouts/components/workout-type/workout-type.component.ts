@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, forwardRef, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, forwardRef} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {WorkoutType} from "../../../../utils/types";
 
@@ -15,15 +15,10 @@ export const TYPE_CONTROL_ACCESSOR = {
   templateUrl: './workout-type.component.html',
   styleUrls: ['./workout-type.component.scss']
 })
-export class WorkoutTypeComponent implements ControlValueAccessor, OnInit {
+export class WorkoutTypeComponent implements ControlValueAccessor {
   selectors = WorkoutType;
 
   value?: WorkoutType;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   registerOnChange(fn: any): void {
     this.onModelChange = fn;

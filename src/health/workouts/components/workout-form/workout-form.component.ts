@@ -52,6 +52,7 @@ export class WorkoutFormComponent implements OnChanges {
 
   constructor(private formBuilder: FormBuilder) {}
 
+  //TODO: Input getter vs ngOnChanges?
   ngOnChanges(changes: SimpleChanges) {
     if (instanceOfWorkout(this.workout)) {
       this.workoutExists = true;
@@ -79,6 +80,7 @@ export class WorkoutFormComponent implements OnChanges {
     this.remove.emit();
   }
 
+  //TODO: Better way of resetting form values
   clearUnusedType(): void {
     this.form.get('type')?.value == this.workoutType.Strength
       ? this.form.get('endurance')?.reset({

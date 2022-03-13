@@ -19,6 +19,7 @@ export class WorkoutComponent implements OnInit, OnDestroy  {
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
+    //TODO: List and individual both subscribe to workouts. Needed if navigating by url. Find a better way.
     this.workoutsService.userWorkouts$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
