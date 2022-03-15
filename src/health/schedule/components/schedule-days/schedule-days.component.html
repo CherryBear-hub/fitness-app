@@ -1,7 +1,7 @@
 <div class="days">
   <button (click)="selectDay(i)" *ngFor="let day of days; index as i" class="day" type="button">
     <span [class.active]="i === selected">
-      {{ day }}
+      {{ day.short }}
     </span>
   </button>
 </div>

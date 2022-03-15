@@ -7,6 +7,8 @@ import { ScheduleDaysComponent } from './components/schedule-days/schedule-days.
 import { ScheduleControlsComponent } from './components/schedule-controls/schedule-controls.component';
 import { ScheduleSectionComponent } from './components/schedule-section/schedule-section.component';
 import { ScheduleAssignComponent } from './components/schedule-assign/schedule-assign.component';
+import { GetSectionPipe } from './pipes/get-section.pipe';
+import {SharedModule} from "../shared/shared.module";
 
 export const ROUTES: Routes = [
   {
@@ -22,11 +24,13 @@ export const ROUTES: Routes = [
     ScheduleDaysComponent,
     ScheduleControlsComponent,
     ScheduleSectionComponent,
-    ScheduleAssignComponent
+    ScheduleAssignComponent,
+    GetSectionPipe
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(ROUTES)
+    RouterModule.forChild(ROUTES),
+    SharedModule
   ]
 })
 export class ScheduleModule { }

@@ -5,17 +5,17 @@
   <div>
     <div
       (click)="onSelect('meals', section.meals)"
-      *ngIf="section && section.meals; else addMeal"
+      *ngIf="section && section.meals?.length; else addMeal"
       class="schedule-section__item food"
     >
-      <span>{{ section.meals | json }}</span>
+      <span>{{ section.meals | join }}</span>
     </div>
     <div
       (click)="onSelect('workouts', section.workouts)"
-      *ngIf="section && section.workouts; else addWorkout"
+      *ngIf="section && section.workouts?.length; else addWorkout"
       class="schedule-section__item workout"
     >
-      <span>{{ section.workouts | json }}</span>
+      <span>{{ section.workouts | join }}</span>
     </div>
   </div>
 </div>

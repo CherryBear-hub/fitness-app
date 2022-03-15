@@ -6,13 +6,13 @@ import {
   scan,
   Subject,
 } from 'rxjs';
-import { Meal, ScheduleList, User, Workout } from './utils/types';
+import {Meal, ScheduleList, ScheduleSection, User, Workout} from './utils/types';
 
 export interface State {
   user?: User;
   meals?: Meal[];
   schedule?: ScheduleList;
-  selected?: any;
+  selected?: ScheduleSection;
   workouts?: Workout[];
   date?: Date;
   list?: Meal[] | Workout[];

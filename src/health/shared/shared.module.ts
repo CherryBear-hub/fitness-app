@@ -6,6 +6,7 @@ import { GetRoutePipe } from './pipes/get-route.pipe';
 import { RouterModule } from '@angular/router';
 import { PanelRemoveComponent } from './components/panel-remove/panel-remove.component';
 import { WorkoutInfoPipe } from './pipes/workout-info.pipe';
+import { JoinPipe } from './pipes/join.pipe';
 
 @NgModule({
   declarations: [
@@ -13,8 +14,9 @@ import { WorkoutInfoPipe } from './pipes/workout-info.pipe';
     PanelRemoveComponent,
     WorkoutInfoPipe,
     GetRoutePipe,
+    JoinPipe,
   ],
   imports: [CommonModule, AngularFireDatabaseModule, RouterModule],
-  exports: [ListItemComponent, PanelRemoveComponent, WorkoutInfoPipe],
+  exports: [ListItemComponent, PanelRemoveComponent, WorkoutInfoPipe, JoinPipe],
 })
 export class SharedModule {}

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ScheduleItem } from '../../../../utils/types';
+import {Meal, ScheduleItem, ScheduleSectionBase, SectionType, Workout} from '../../../../utils/types';
 
 @Component({
   selector: 'fit-schedule-section',
@@ -10,9 +10,9 @@ export class ScheduleSectionComponent {
   @Input() name: string = '';
   @Input() section?: ScheduleItem;
 
-  @Output() select = new EventEmitter<any>();
+  @Output() select = new EventEmitter<ScheduleSectionBase>();
 
-  onSelect(type: string, assigned: unknown[] = []) {
+  onSelect(type: SectionType, assigned: Meal[] | Workout[] = []) {
     const data = this.section;
     this.select.emit({
       type,

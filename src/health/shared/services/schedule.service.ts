@@ -55,7 +55,7 @@ export class ScheduleService {
   items$ = this.itemList$.pipe(
     withLatestFrom(this.section$),
     switchMap(([items, section]) => {
-      const id = section.data.id;
+      const id = section.data?.id;
 
       const defaults: ScheduleItem = {
         workouts: [],

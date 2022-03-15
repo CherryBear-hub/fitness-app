@@ -14,7 +14,7 @@ import { WorkoutsService } from '../../../shared/services/workouts.service';
 export class ScheduleComponent implements OnInit, OnDestroy {
   date$?: Observable<Date>;
   schedule$?: Observable<ScheduleList>;
-  selected$?: Observable<any>;
+  selected$?: Observable<ScheduleSection>;
   list$?: Observable<Meal[] | Workout[]>;
 
   open = false;
@@ -31,7 +31,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.date$ = this.store.selectedState<Date>('date');
     this.schedule$ = this.store.selectedState<ScheduleList>('schedule');
-    this.selected$ = this.store.selectedState<any>('selected');
+    this.selected$ = this.store.selectedState<ScheduleSection>('selected');
     this.list$ = this.store.selectedState<Meal[] | Workout[]>('list')
 
     this.scheduleService.schedule$

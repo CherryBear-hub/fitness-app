@@ -1,6 +1,6 @@
 <div class="calender">
   <fit-schedule-controls
-    (move)="onChangeDate($event)"
+    (move)="onChangeWeek($event)"
     [selected]="selectedDay"
   ></fit-schedule-controls>
   <fit-schedule-days
@@ -10,7 +10,7 @@
   <fit-schedule-section
     *ngFor="let section of sections"
     [name]="section.name"
-    [section]="getSection(section.key)"
+    [section]="items | getSection: section.key"
     (select)="selectSection($event, section.key)"
   >
   </fit-schedule-section>
